@@ -15,20 +15,39 @@ services:
         - php:fpm
 
     php:
-      image: half03/php:7.2
+      image: half03/php-imagick:7.2
+      expose:
+version: '3.3'
+services:
+    nginx:
+      image: nginx:alpine
+      ports:
+        - "80:80"
+        - "9502:9502"
+        - "443:443"
+      volumes:
+        - ./www/:/www/:rw
+        - ./conf/nginx/conf.d:/etc/nginx/conf.d/:ro
+        - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        - ./log/nginx/:/var/log/nginx/:rw
+      links:
+        - php:fpm
+
+    php:
+      image: half03/php-imagick:7.2
       expose:
         - "9000"
         - "9501"
       volumes:
         - ./www/:/www/:rw
        #- ./conf/php/:/usr/local/etc/php/:ro
-        - ./log/php/:/var/log/php/:rw
+        - ./log/php-fpm/:/var/log/php-fpm/:rw
       links:
         - mysql:mysql
         - redis:redis
 
     mysql:
-      image: mysql:latest
+      image: mysql:5.7
       ports:
         - "3306:3306"
       volumes:
@@ -38,11 +57,17 @@ services:
       environment:
         MYSQL_ROOT_PASSWORD : 123456
     redis:
-      image: redis:latest
+      image: redis:4.0
+      restart: always
+      command: redis-server --requirepass 123456
       ports:
         - "6379:6379"
     mongodb:
       image: mongo:latest
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: 123456
       ports:
         - "27017:27017"
       volumes:
