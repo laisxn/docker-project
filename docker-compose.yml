@@ -10,7 +10,7 @@ services:
         - "9000"
       volumes:
         - ./www/:/www/:rw
-        #- ./conf/php/:/usr/local/etc/php/conf.d/:ro
+        - ./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
         - ./log/php-fpm/:/var/log/php-fpm/:rw
       links:
         - mysql:mysql
