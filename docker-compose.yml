@@ -1,5 +1,21 @@
 version: '3.3'
 services:
+    php:
+      image: laisxn/php:7.2-fpm
+      ports:
+        - "9501:9501"
+        - "9502:9502"
+        - "9503:9503"
+      expose:
+        - "9000"
+      volumes:
+        - ./www/:/www/:rw
+        - ./conf/php/:/usr/local/etc/php/:rw
+        - ./log/php-fpm/:/var/log/php-fpm/:rw
+      links:
+        - mysql:mysql
+        - redis:redis
+
     nginx:
       image: nginx:alpine
       ports:
@@ -13,23 +29,6 @@ services:
         - ./log/nginx/:/var/log/nginx/:rw
       links:
         - php:fpm
-
-    php:
-      image: laisxn/php:7.2-fpm
-      ports:
-        - "9501:9501"
-        - "9502:9502"
-        - "9503:9503"
-      expose:
-        - "9000"
-      volumes:
-        - ./www/:/www/:rw
-        #- ./conf/php/:/usr/local/etc/php/:ro
-        - ./log/php-fpm/:/var/log/php-fpm/:rw
-      links:
-        - mysql:mysql
-        - redis:redis
-
     mysql:
       image: mysql:5.7
       ports:
