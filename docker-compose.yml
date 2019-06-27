@@ -1,4 +1,7 @@
 version: '3.3'
+networks:
+  project_net:
+    driver: bridge
 services:
     php:
       image: laisxn/php:7.2-fpm
@@ -13,7 +16,7 @@ services:
         - ./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
         - ./log/php-fpm/:/var/log/php-fpm/:rw
       networks:
-        - project_net
+        - "project_net"
         
     nginx:
       image: nginx:alpine
@@ -27,7 +30,7 @@ services:
         - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
         - ./log/nginx/:/var/log/nginx/:rw
       networks:
-        - project_net
+        - "project_net"
       #links:
       #  - php:fpm
       
@@ -42,7 +45,7 @@ services:
       environment:
         MYSQL_ROOT_PASSWORD : 123456
       networks:
-        - project_net
+        - "project_net"
         
     redis:
       image: redis:4.0
@@ -51,7 +54,7 @@ services:
       ports:
         - "6379:6379"
       networks:
-        - project_net
+        - "project_net"
         
     mongodb:
       image: mongo:latest
@@ -63,5 +66,5 @@ services:
         - "27017:27017"
       volumes:
         - ./data/mongodb/:/data/db/:rw
-        networks:
-        - project_net
+      networks:
+        - "project_net"
