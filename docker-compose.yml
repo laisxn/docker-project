@@ -4,9 +4,9 @@ networks:
     driver: bridge
 services:
     php:
-      image: laisxn/php:7.4.6
+      image: laisxn/php:7.4.3
       ports:
-        - "9501:9501"
+        - "9501:9501"s
         - "9502:9502"
         - "9503:9503"
       expose:
