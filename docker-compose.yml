@@ -6,7 +6,7 @@ services:
     php:
       image: laisxn/php:7.4.11
       ports:
-        - "9501:9501"s
+        - "9501:9501"
         - "9502:9502"
         - "9503:9503"
       expose:
