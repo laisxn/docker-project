@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
     php:
-      image: laisxn/php:7.3
+      image: laisxn/php:7.4.6
       ports:
         - "9501:9501"
         - "9502:9502"
