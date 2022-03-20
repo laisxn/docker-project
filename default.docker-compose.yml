@@ -44,6 +44,8 @@ services:
         - ./log/mysql/:/var/log/mysql/:rw
       environment:
         MYSQL_ROOT_PASSWORD : 123456
+        MYSQL_DATABASE: blog
+        TZ: Asia/Shanghai
       networks:
         - "project_net"
         
