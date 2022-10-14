@@ -1,4 +1,6 @@
 [mysqld]
+#跳过域名解析
+skip-name-resolve
 datadir=/var/lib/mysql
 #socket=/var/lib/mysql/mysql.sock
 # Disabling symbolic-links is recommended to prevent assorted security risks
