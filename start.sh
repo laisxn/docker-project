@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp ./default.docker-compose.yml  ./docker-compose.yml
 cp ./conf/mysql/default.my.cnf  ./conf/mysql/my.cnf
 cp ./conf/php/default.php.ini  ./conf/php/php.ini
 
