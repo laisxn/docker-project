@@ -14,6 +14,9 @@ services:
         - "9506:9506"
       expose:
         - "9000"
+      environment:
+        TZ: Asia/Shanghai
+        LC_ALL: C.UTF-8
       volumes:
         - ./www/:/www/:rw
         - ./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
@@ -28,6 +31,8 @@ services:
         - "8000:8000"
         - "8080:8080"
         - "8081:8081"
+        - "8088:8088"
+        - "8888:8888"
         - "443:443"
       volumes:
         - ./www/:/www/:rw
@@ -36,11 +41,22 @@ services:
         - ./log/nginx/:/var/log/nginx/:rw
       networks:
         - "project_net"
+      environment:
+        TZ: Asia/Shanghai
       links:
         - php:fpm
       
     mysql:
       image: mysql:5.7
+      restart: always
+      command:
+        --character-set-server=utf8mb4
+        --collation-server=utf8mb4_general_ci
+        --explicit_defaults_for_timestamp=true
+        --lower_case_table_names=1
+        --max_allowed_packet=128M
+        --default-authentication-plugin=mysql_native_password
+        --sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO"
       ports:
         - "3306:3306"
       volumes:
