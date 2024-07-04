@@ -65,13 +65,13 @@ services:
         - ./log/mysql/:/var/log/mysql/:rw
       environment:
         MYSQL_ROOT_PASSWORD : 123456
-        MYSQL_DATABASE: blog
+        #MYSQL_DATABASE: blog
         TZ: Asia/Shanghai
       networks:
         - "project_net"
         
     redis:
-      image: redis:4.0
+      image: redis:latest
       restart: always
       command: redis-server --requirepass 123456
       ports:
