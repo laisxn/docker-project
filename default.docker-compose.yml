@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
     php:
-      image: laisxn/php:7.4.5
+      image: registry.cn-hangzhou.aliyuncs.com/guanfang/php:8.3-fpm
       ports:
         - "9501:9501"
         - "9502:9502"
@@ -25,7 +25,7 @@ services:
         - "project_net"
         
     nginx:
-      image: nginx:alpine
+      image: registry.cn-hangzhou.aliyuncs.com/guanfang/nginx:1.27.0
       ports:
         - "80:80"
         - "8000:8000"
@@ -47,7 +47,7 @@ services:
         - php:fpm
       
     mysql:
-      image: mysql:5.7
+      image: registry.cn-hangzhou.aliyuncs.com/guanfang/mysql:5.7
       restart: always
       command:
         --character-set-server=utf8mb4
@@ -71,7 +71,7 @@ services:
         - "project_net"
         
     redis:
-      image: redis:latest
+      image: registry.cn-hangzhou.aliyuncs.com/guanfang/redis:6.0
       restart: always
       command: redis-server --requirepass 123456
       ports:
@@ -80,7 +80,7 @@ services:
         - "project_net"
         
     mongodb:
-      image: mongo:latest
+      image: registry.cn-hangzhou.aliyuncs.com/guanfang/mongo:7.0.12
       restart: always
       environment:
         MONGO_INITDB_ROOT_USERNAME: root
